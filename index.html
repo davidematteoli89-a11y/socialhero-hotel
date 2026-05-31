@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Hero — Hotel</title>
+  <meta name="description" content="Meno OTA, più prenotazioni dirette. Social media e advertising per hotel indipendenti che vogliono visibilità e ospiti senza commissioni." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #080f1e;
+      --navy2:  #0d1a30;
+      --navy3:  #132040;
+      --cyan:   #00c8ff;
+      --blue:   #1a6bff;
+      --white:  #ffffff;
+      --gray:   #7a96b8;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--white); font-family: 'Barlow', sans-serif; line-height: 1.6; overflow-x: hidden; }
+
+    /* ─── LOGO ─── */
+    .logo img { height: 44px; width: auto; filter: invert(1); display: block; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,15,30,0.88); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,200,255,0.1);
+      padding: 14px 32px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: var(--navy); font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 0.95rem; letter-spacing: 0.5px;
+      padding: 9px 22px; border-radius: 50px; white-space: nowrap;
+      border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .nav-cta:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,200,255,0.45); }
+
+    /* ─── SHARED ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 3px; color: var(--cyan); text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.0; margin-bottom: 18px; }
+    .section-title .cyan { color: var(--cyan); }
+    .section-sub { color: var(--gray); font-size: 1.05rem; max-width: 580px; margin-bottom: 56px; line-height: 1.7; }
+
+    /* ─── HERO ─── */
+    .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 24px 100px; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 55% at 50% -5%, rgba(0,130,255,0.22) 0%, transparent 65%), radial-gradient(ellipse 40% 30% at 80% 80%, rgba(0,200,255,0.07) 0%, transparent 60%); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; color: var(--cyan); text-transform: uppercase; margin-bottom: 20px; position: relative; }
+    .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3rem, 9vw, 7rem); line-height: 0.95; letter-spacing: -1px; text-transform: uppercase; position: relative; margin-bottom: 28px; }
+    .hero h1 .cyan { color: var(--cyan); }
+    .hero-sub { max-width: 580px; font-size: 1.15rem; color: var(--gray); line-height: 1.7; position: relative; margin-bottom: 44px; }
+    .hero-cta { display: inline-block; background: linear-gradient(135deg, var(--cyan), var(--blue)); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 1px; padding: 16px 40px; border-radius: 50px; position: relative; transition: transform 0.15s, box-shadow 0.15s; border: none; cursor: pointer; }
+    .hero-cta:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,200,255,0.5); }
+
+    /* ─── PAIN STRIP ─── */
+    .pain-strip { background: var(--navy2); padding: 60px 0; border-top: 1px solid rgba(0,200,255,0.08); border-bottom: 1px solid rgba(0,200,255,0.08); }
+    .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .pain-item { text-align: center; padding: 32px 24px; border-right: 1px solid rgba(0,200,255,0.1); }
+    .pain-item:last-child { border-right: none; }
+    .pain-pct { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.8rem; color: var(--cyan); display: block; line-height: 1; margin-bottom: 8px; }
+    .pain-label { color: var(--gray); font-size: 0.88rem; line-height: 1.5; }
+
+    /* ─── SERVICES ─── */
+    #servizi { padding: 100px 0; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+    .service-card { background: var(--navy2); border: 1px solid rgba(0,200,255,0.1); border-radius: var(--radius); padding: 36px 32px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--blue)); opacity: 0; transition: opacity 0.2s; }
+    .service-card:hover { border-color: rgba(0,200,255,0.3); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-num { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--cyan); opacity: 0.6; display: block; margin-bottom: 16px; }
+    .service-icon { font-size: 2rem; margin-bottom: 16px; }
+    .service-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.4rem; margin-bottom: 12px; }
+    .service-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.7; }
+    .service-tag { display: inline-block; margin-top: 16px; padding: 5px 14px; border-radius: 50px; background: rgba(0,200,255,0.1); color: var(--cyan); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; }
+
+    /* ─── VIDEO ─── */
+    .video-section { background: var(--navy2); padding: 100px 0; }
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+    @media (max-width: 760px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+      .video-wrap:last-child { display: none; }
+    }
+    .video-wrap { position: relative; border-radius: 14px; overflow: hidden; border: 1.5px solid rgba(0,200,255,0.1); background: #000; aspect-ratio: 9/16; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+    .video-wrap:hover { border-color: rgba(0,200,255,0.4); box-shadow: 0 0 24px rgba(0,200,255,0.1); }
+    .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-controls { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 10px 12px; background: linear-gradient(transparent, rgba(0,0,0,0.75)); display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .btn-icon { background: rgba(255,255,255,0.18); border: none; cursor: pointer; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); transition: background 0.15s; flex-shrink: 0; }
+    .btn-icon:hover { background: rgba(0,200,255,0.5); }
+    .btn-icon svg { width: 16px; height: 16px; fill: white; }
+    .video-play-overlay { position: absolute; inset: 0; bottom: 56px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.05); transition: opacity 0.2s; cursor: pointer; }
+    .video-play-overlay svg { width: 52px; height: 52px; fill: rgba(255,255,255,0.9); filter: drop-shadow(0 2px 12px rgba(0,0,0,0.6)); transition: transform 0.15s; }
+    .video-play-overlay:hover svg { transform: scale(1.1); }
+    .video-wrap.playing .video-play-overlay { opacity: 0; pointer-events: none; }
+    .video-wrap.playing:hover .video-play-overlay { opacity: 0; }
+
+    /* ─── FULLSCREEN ─── */
+    #vfs-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.96); align-items: center; justify-content: center; }
+    #vfs-overlay.open { display: flex; }
+    #vfs-inner { position: relative; height: 100svh; max-width: min(calc(100svh * 9 / 16), 100vw); width: 100%; }
+    #vfs-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #vfs-close { position: absolute; top: 14px; right: 14px; z-index: 960; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 1.3rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    #vfs-mute { position: absolute; bottom: 20px; right: 14px; z-index: 960; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 1rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    /* ─── PERCHÉ ─── */
+    .perche-section { background: var(--navy3); padding: 100px 0; }
+    .perche-intro { max-width: 700px; margin: 0 auto 60px; color: var(--gray); font-size: 1.1rem; text-align: center; line-height: 1.75; }
+    .perche-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 64px; }
+    .perche-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(0,200,255,0.12); border-radius: var(--radius); padding: 32px 28px; transition: border-color 0.2s, transform 0.2s; }
+    .perche-card:hover { border-color: rgba(0,200,255,0.35); transform: translateY(-4px); }
+    .perche-icon { font-size: 2rem; margin-bottom: 14px; }
+    .perche-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--white); margin-bottom: 10px; }
+    .perche-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.7; }
+    .perche-card p strong { color: var(--cyan); }
+    .perche-quote { max-width: 640px; margin: 0 auto; font-style: italic; color: var(--gray); font-size: 1rem; border-left: 3px solid var(--cyan); padding-left: 20px; }
+
+    /* ─── ABOUT ─── */
+    .about-section { padding: 100px 0; background: var(--navy); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-text h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; line-height: 1.05; margin-bottom: 20px; }
+    .about-text h2 .cyan { color: var(--cyan); }
+    .about-text p { color: var(--gray); margin-bottom: 16px; font-size: 1rem; line-height: 1.75; }
+    .about-stats { display: flex; flex-direction: column; gap: 20px; }
+    .about-stat { background: var(--navy2); border: 1px solid rgba(0,200,255,0.12); border-radius: var(--radius); padding: 24px 28px; display: flex; align-items: center; gap: 20px; transition: border-color 0.2s; }
+    .about-stat:hover { border-color: rgba(0,200,255,0.35); }
+    .about-stat-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; color: var(--cyan); white-space: nowrap; }
+    .about-stat-label { color: var(--gray); font-size: 0.9rem; line-height: 1.4; }
+
+    /* ─── FORM ─── */
+    .form-section { background: var(--navy2); padding: 100px 0; }
+    .form-wrap { max-width: 680px; margin: 0 auto; background: var(--navy3); border: 1px solid rgba(0,200,255,0.15); border-radius: 24px; padding: 48px 40px; }
+    .form-progress { display: flex; gap: 6px; margin-bottom: 36px; }
+    .form-progress span { flex: 1; height: 4px; border-radius: 4px; background: rgba(0,200,255,0.15); transition: background 0.3s; }
+    .form-progress span.active { background: var(--cyan); }
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 3px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; }
+    .step-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.8rem; margin-bottom: 28px; line-height: 1.15; }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .choice-label { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(0,200,255,0.15); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
+    .choice-label input { display: none; }
+    .choice-label.selected { border-color: var(--cyan); background: rgba(0,200,255,0.1); }
+    .choice-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(0,200,255,0.4); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, background 0.15s; }
+    .choice-label.selected .choice-check { border-color: var(--cyan); background: var(--cyan); }
+    .choice-check::after { content: '✓'; font-size: 0.7rem; color: var(--navy); opacity: 0; transition: opacity 0.15s; }
+    .choice-label.selected .choice-check::after { opacity: 1; }
+    .choice-text { font-size: 0.93rem; line-height: 1.3; }
+    .form-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,200,255,0.2); border-radius: 10px; padding: 14px 16px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 0.95rem; margin-bottom: 14px; outline: none; transition: border-color 0.15s; }
+    .form-input:focus { border-color: var(--cyan); }
+    .form-input::placeholder { color: var(--gray); }
+    .form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; gap: 12px; }
+    .btn-prev { background: transparent; border: 1px solid rgba(0,200,255,0.3); color: var(--cyan); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 12px 24px; border-radius: 50px; cursor: pointer; transition: background 0.15s; }
+    .btn-prev:hover { background: rgba(0,200,255,0.1); }
+    .btn-next { background: linear-gradient(135deg, var(--cyan), var(--blue)); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1rem; padding: 13px 32px; border-radius: 50px; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+    .btn-next:hover { transform: scale(1.04); box-shadow: 0 0 20px rgba(0,200,255,0.4); }
+    .form-success { text-align: center; padding: 20px 0; }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .form-success h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; margin-bottom: 12px; }
+    .form-success p { color: var(--gray); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy); border-top: 1px solid rgba(0,200,255,0.08); padding: 40px 24px; text-align: center; }
+    .footer-logo { margin: 0 auto 16px; width: fit-content; }
+    footer p { color: var(--gray); font-size: 0.85rem; }
+    footer a { color: var(--cyan); text-decoration: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .perche-grid { grid-template-columns: 1fr; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .pain-item { border-right: none; border-bottom: 1px solid rgba(0,200,255,0.1); }
+      .pain-item:last-child { border-bottom: none; }
+    }
+    @media (max-width: 500px) {
+      nav { padding: 12px 16px; }
+      .choices { grid-template-columns: 1fr; }
+      .form-wrap { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo"><img src="logo.png" alt="Social Hero" /></a>
+  <button class="nav-cta" onclick="document.getElementById('contatto').scrollIntoView({behavior:'smooth'})">Richiedi una consulenza</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">Social Hero · Hotel</div>
+  <h1>Meno OTA.<br>Più ospiti<br><span class="cyan">diretti.</span></h1>
+  <p class="hero-sub">Social media e advertising per hotel indipendenti che vogliono smettere di regalare commissioni a Booking ed Expedia — e iniziare a riempire le camere con prenotazioni proprie.</p>
+  <button class="hero-cta" onclick="document.getElementById('contatto').scrollIntoView({behavior:'smooth'})">Inizia adesso →</button>
+</section>
+
+<!-- PAIN STRIP -->
+<section class="pain-strip">
+  <div class="container">
+    <div class="pain-grid">
+      <div class="pain-item">
+        <span class="pain-pct">15–25%</span>
+        <span class="pain-label">di commissione media<br>che le OTA trattengono<br>su ogni prenotazione</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-pct">70%</span>
+        <span class="pain-label">dei viaggiatori consulta<br>i social prima di<br>scegliere dove dormire</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-pct">0%</span>
+        <span class="pain-label">di commissione<br>sulle prenotazioni<br>che arrivano da te</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servizi">
+  <div class="container">
+    <div class="section-eyebrow">Cosa facciamo</div>
+    <h2 class="section-title">Il tuo hotel.<br><span class="cyan">Conosciuto.</span></h2>
+    <p class="section-sub">Un hotel indipendente ha qualcosa che le catene non possono avere: una storia, un'identità, un'atmosfera unica. Facciamo in modo che le persone giuste la scoprano — e prenotino direttamente da te.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <div class="service-icon">🎬</div>
+        <h3>Video &amp; Contenuti Social</h3>
+        <p>Video verticali che raccontano l'atmosfera del tuo hotel — camere, colazione, spazi comuni, esperienze. Contenuti autentici che fanno sognare e spingono a prenotare, prima ancora di confrontare i prezzi su Booking.</p>
+        <span class="service-tag">→ Brand awareness</span>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <div class="service-icon">🎯</div>
+        <h3>Advertising Diretto</h3>
+        <p>Campagne Meta e Google Ads mirate a chi sta pianificando un viaggio nella tua zona — con creatività che portano alla prenotazione diretta sul tuo sito, non su Booking. Ogni euro investito genera ospiti senza commissioni.</p>
+        <span class="service-tag">→ Prenotazioni dirette</span>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <div class="service-icon">✨</div>
+        <h3>Identità &amp; Storytelling</h3>
+        <p>Un hotel indipendente non è solo un posto dove dormire — è un'esperienza. Costruiamo una narrativa visiva coerente che racconta chi sei, cosa offri e perché valga la pena sceglierti rispetto a qualsiasi catena o struttura anonima.</p>
+        <span class="service-tag">→ Differenziazione</span>
+      </div>
+      <div class="service-card">
+        <span class="service-num">04</span>
+        <div class="service-icon">📊</div>
+        <h3>Strategia &amp; Ottimizzazione</h3>
+        <p>Non lavoriamo a intuizioni. Monitoriamo i dati, ottimizziamo le campagne e adattiamo la strategia stagione per stagione. Sai sempre cosa funziona, dove va il tuo investimento e quali contenuti portano più prenotazioni.</p>
+        <span class="service-tag">→ ROI misurabile</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="container">
+    <div class="section-eyebrow">Video</div>
+    <h2 class="section-title">L'atmosfera<br><span class="cyan">che convince.</span></h2>
+    <p class="section-sub">Un video vale più di mille descrizioni su una OTA. Mostra il tuo hotel com'è davvero — e lascia che siano gli ospiti giusti a sceglierti.</p>
+    <div class="video-grid">
+      <div class="video-wrap" id="vw0">
+        <video id="vid0" src="video/v1.mp4" poster="video/p1.jpg" loop playsinline preload="none"></video>
+        <div class="video-play-overlay" onclick="togglePlay(0)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-controls">
+          <button class="btn-icon" id="vm0" onclick="toggleMute(0)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+          <button class="btn-icon" onclick="goFS(0)"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+        </div>
+      </div>
+      <div class="video-wrap" id="vw1">
+        <video id="vid1" src="video/v2.mp4" poster="video/p2.jpg" loop playsinline preload="none"></video>
+        <div class="video-play-overlay" onclick="togglePlay(1)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-controls">
+          <button class="btn-icon" id="vm1" onclick="toggleMute(1)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+          <button class="btn-icon" onclick="goFS(1)"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+        </div>
+      </div>
+      <div class="video-wrap" id="vw2">
+        <video id="vid2" src="video/v3.mp4" poster="video/p3.jpg" loop playsinline preload="none"></video>
+        <div class="video-play-overlay" onclick="togglePlay(2)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-controls">
+          <button class="btn-icon" id="vm2" onclick="toggleMute(2)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+          <button class="btn-icon" onclick="goFS(2)"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+        </div>
+      </div>
+      <div class="video-wrap" id="vw3">
+        <video id="vid3" src="video/v4.mp4" poster="video/p4.jpg" loop playsinline preload="none"></video>
+        <div class="video-play-overlay" onclick="togglePlay(3)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-controls">
+          <button class="btn-icon" id="vm3" onclick="toggleMute(3)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+          <button class="btn-icon" onclick="goFS(3)"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+        </div>
+      </div>
+      <div class="video-wrap" id="vw4">
+        <video id="vid4" src="video/v5.mp4" poster="video/p5.jpg" loop playsinline preload="none"></video>
+        <div class="video-play-overlay" onclick="togglePlay(4)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-controls">
+          <button class="btn-icon" id="vm4" onclick="toggleMute(4)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+          <button class="btn-icon" onclick="goFS(4)"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+        </div>
+      </div>
+      <div class="video-wrap" id="vw5">
+        <video id="vid5" src="video/v6.mp4" poster="video/p6.jpg" loop playsinline preload="none"></video>
+        <div class="video-play-overlay" onclick="togglePlay(5)"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-controls">
+          <button class="btn-icon" id="vm5" onclick="toggleMute(5)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></button>
+          <button class="btn-icon" onclick="goFS(5)"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5HVh5z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULLSCREEN -->
+<div id="vfs-overlay">
+  <div id="vfs-inner">
+    <video id="vfs-video" loop playsinline></video>
+    <button id="vfs-close" onclick="closeFS()">✕</button>
+    <button id="vfs-mute" onclick="toggleFSMute()">🔇</button>
+  </div>
+</div>
+
+<!-- PERCHÉ -->
+<section class="perche-section">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-eyebrow">Il vantaggio competitivo</div>
+      <h2 class="section-title" style="max-width:700px; margin: 0 auto 16px;">Smetti di lavorare<br><span class="cyan">per le OTA.</span></h2>
+    </div>
+    <p class="perche-intro">Booking ed Expedia ti portano visibilità — ma a un prezzo. Ogni prenotazione che passa da loro è una commissione che esce dal tuo margine. La strategia giusta sui social e sull'advertising ti permette di costruire un canale diretto, tuo, che nel tempo riduce la dipendenza dalle piattaforme.</p>
+
+    <div class="perche-grid">
+      <div class="perche-card">
+        <div class="perche-icon">📱</div>
+        <h3>I social come vetrina diretta</h3>
+        <p>Instagram e TikTok sono diventati il nuovo motore di ispirazione per i viaggiatori. Chi vede un video della tua colazione, della tua vista o della tua atmosfera <strong>non va su Booking a confrontare prezzi</strong> — cerca il tuo sito e prenota direttamente. Il contenuto giusto bypassa le OTA.</p>
+      </div>
+      <div class="perche-card">
+        <div class="perche-icon">🎯</div>
+        <h3>Advertising che porta al tuo sito</h3>
+        <p>Le campagne che costruiamo portano il traffico direttamente al tuo booking engine — non a una piattaforma terza. Ogni clic è un potenziale ospite che prenota <strong>senza commissioni</strong>, con un margine pieno rimasto nelle tue mani.</p>
+      </div>
+      <div class="perche-card">
+        <div class="perche-icon">🏨</div>
+        <h3>L'identità che le catene non hanno</h3>
+        <p>Un hotel indipendente ha un'anima. Una storia. Un carattere. Sono esattamente queste le cose che i viaggiatori cercano oggi — e che nessuna catena può replicare. <strong>Raccontarle bene</strong> è il tuo vantaggio competitivo più potente.</p>
+      </div>
+      <div class="perche-card">
+        <div class="perche-icon">📈</div>
+        <h3>Un canale che cresce nel tempo</h3>
+        <p>A differenza di una campagna OTA che si spegne appena smetti di pagare, una community social costruita bene <strong>continua a lavorare per te</strong>. Follower che diventano ospiti, ospiti che diventano follower — un ciclo virtuoso che si autoalimenta.</p>
+      </div>
+    </div>
+
+    <p class="perche-quote">"Il problema non è che le OTA esistono — è che molti hotel non hanno alternative. Il nostro lavoro è costruire quella alternativa."</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="section-eyebrow">Chi sono</div>
+        <h2 class="section-title">Un freelance.<br>La forza di<br><span class="cyan">un'agenzia.</span></h2>
+        <p>Mi chiamo Filippo. Lavoro come freelance, ma con la struttura, gli strumenti e la cura di un'agenzia — senza i costi fissi e i tempi morti che ne derivano.</p>
+        <p>Ogni progetto ha un unico punto di contatto: io. Nessun account manager, nessun passaggio di brief tra reparti. Chi lavora sulla tua strategia è la stessa persona che conosce il tuo hotel, la tua stagionalità e i tuoi obiettivi.</p>
+        <p>Ho lavorato con strutture ricettive indipendenti che dipendevano quasi esclusivamente dalle OTA e oggi hanno un canale social attivo, una community reale e prenotazioni che arrivano direttamente — ogni settimana.</p>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat">
+          <span class="about-stat-num">0%</span>
+          <div class="about-stat-label">commissioni sulle prenotazioni<br>che genera il tuo canale diretto</div>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">360°</span>
+          <div class="about-stat-label">strategia, video, campagne<br>e storytelling sotto un unico tetto</div>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">100%</span>
+          <div class="about-stat-label">focus su hotel indipendenti<br>con identità propria</div>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">1</span>
+          <div class="about-stat-label">unico referente che conosce<br>il tuo progetto a fondo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="contatto">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 48px;">
+      <div class="section-eyebrow">Inizia ora</div>
+      <h2 class="section-title">Parliamo del<br><span class="cyan">tuo hotel.</span></h2>
+      <p style="color: var(--gray); max-width: 500px; margin: 0 auto;">Rispondi a qualche domanda e ti ricontatterò entro 24 ore con una valutazione personalizzata.</p>
+    </div>
+    <div class="form-wrap">
+      <div class="form-progress" id="fprog">
+        <span class="active"></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="form-step active" id="step1">
+        <div class="step-label">Passo 1 di 5</div>
+        <div class="step-title">Cosa stai cercando?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="checkbox" name="obiettivo" value="social_content"/><span class="choice-check"></span><span class="choice-text">Contenuti social e video</span></label>
+          <label class="choice-label"><input type="checkbox" name="obiettivo" value="advertising"/><span class="choice-check"></span><span class="choice-text">Advertising e prenotazioni dirette</span></label>
+          <label class="choice-label"><input type="checkbox" name="obiettivo" value="identita"/><span class="choice-check"></span><span class="choice-text">Identità e storytelling</span></label>
+          <label class="choice-label"><input type="checkbox" name="obiettivo" value="strategia"/><span class="choice-check"></span><span class="choice-text">Strategia completa</span></label>
+        </div>
+        <div class="form-nav"><span></span><button class="btn-next" onclick="nextStep(1)">Avanti →</button></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step" id="step2">
+        <div class="step-label">Passo 2 di 5</div>
+        <div class="step-title">Che tipo di struttura hai?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="struttura" value="hotel"/><span class="choice-check"></span><span class="choice-text">Hotel / Albergo</span></label>
+          <label class="choice-label"><input type="radio" name="struttura" value="bb_affittacamere"/><span class="choice-check"></span><span class="choice-text">B&amp;B / Affittacamere</span></label>
+          <label class="choice-label"><input type="radio" name="struttura" value="resort_agriturismo"/><span class="choice-check"></span><span class="choice-text">Resort / Agriturismo</span></label>
+          <label class="choice-label"><input type="radio" name="struttura" value="altra_struttura"/><span class="choice-check"></span><span class="choice-text">Altra struttura ricettiva</span></label>
+        </div>
+        <div class="form-nav"><button class="btn-prev" onclick="prevStep(2)">← Indietro</button><button class="btn-next" onclick="nextStep(2)">Avanti →</button></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step" id="step3">
+        <div class="step-label">Passo 3 di 5</div>
+        <div class="step-title">Dipendi dalle OTA?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="ota" value="quasi_tutto"/><span class="choice-check"></span><span class="choice-text">Quasi tutto passa da OTA</span></label>
+          <label class="choice-label"><input type="radio" name="ota" value="meta"/><span class="choice-check"></span><span class="choice-text">50/50 tra OTA e dirette</span></label>
+          <label class="choice-label"><input type="radio" name="ota" value="poche"/><span class="choice-check"></span><span class="choice-text">Poche OTA, voglio crescere</span></label>
+          <label class="choice-label"><input type="radio" name="ota" value="indipendente"/><span class="choice-check"></span><span class="choice-text">Già indipendente</span></label>
+        </div>
+        <div class="form-nav"><button class="btn-prev" onclick="prevStep(3)">← Indietro</button><button class="btn-next" onclick="nextStep(3)">Avanti →</button></div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="form-step" id="step4">
+        <div class="step-label">Passo 4 di 5</div>
+        <div class="step-title">Budget mensile indicativo?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="budget" value="meno_500"/><span class="choice-check"></span><span class="choice-text">Meno di €500/mese</span></label>
+          <label class="choice-label"><input type="radio" name="budget" value="500_1000"/><span class="choice-check"></span><span class="choice-text">€500 – €1.000/mese</span></label>
+          <label class="choice-label"><input type="radio" name="budget" value="1000_2500"/><span class="choice-check"></span><span class="choice-text">€1.000 – €2.500/mese</span></label>
+          <label class="choice-label"><input type="radio" name="budget" value="oltre_2500"/><span class="choice-check"></span><span class="choice-text">Oltre €2.500/mese</span></label>
+        </div>
+        <div class="form-nav"><button class="btn-prev" onclick="prevStep(4)">← Indietro</button><button class="btn-next" onclick="nextStep(4)">Avanti →</button></div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="form-step" id="step5">
+        <div class="step-label">Passo 5 di 5</div>
+        <div class="step-title">Come ti contatto?</div>
+        <input class="form-input" type="text" id="f-nome" placeholder="Nome e cognome" />
+        <input class="form-input" type="text" id="f-hotel" placeholder="Nome della struttura" />
+        <input class="form-input" type="email" id="f-email" placeholder="Email" />
+        <input class="form-input" type="tel" id="f-tel" placeholder="Telefono (opzionale)" />
+        <div class="form-nav"><button class="btn-prev" onclick="prevStep(5)">← Indietro</button><button class="btn-next" onclick="submitForm()">Invia →</button></div>
+      </div>
+
+      <!-- Success -->
+      <div class="form-step" id="stepOk">
+        <div class="form-success">
+          <div class="success-icon">✅</div>
+          <h3>Perfetto!</h3>
+          <p>Ho ricevuto la tua richiesta. Ti rispondo entro 24 ore con una valutazione personalizzata per la tua struttura.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo logo"><img src="logo.png" alt="Social Hero" /></div>
+  <p style="margin-bottom:8px;">Hotel · Indipendenti · Prenotazioni dirette</p>
+  <p><a href="mailto:info@socialhero.it">info@socialhero.it</a></p>
+</footer>
+
+<script>
+  const NUM_VIDS = 6;
+  function togglePlay(i) {
+    const vid = document.getElementById('vid'+i);
+    const wrap = document.getElementById('vw'+i);
+    if (vid.paused) {
+      for (let j = 0; j < NUM_VIDS; j++) {
+        if (j !== i) { document.getElementById('vid'+j).pause(); document.getElementById('vw'+j).classList.remove('playing'); }
+      }
+      vid.muted = true; vid.play(); wrap.classList.add('playing');
+    } else { vid.pause(); wrap.classList.remove('playing'); }
+  }
+  function toggleMute(i) {
+    const vid = document.getElementById('vid'+i);
+    vid.muted = !vid.muted;
+    if (!vid.muted) { for (let j = 0; j < NUM_VIDS; j++) { if (j !== i) document.getElementById('vid'+j).muted = true; } }
+  }
+  function goFS(i) {
+    const fsVid = document.getElementById('vfs-video');
+    fsVid.src = document.getElementById('vid'+i).src;
+    fsVid.muted = true;
+    document.getElementById('vfs-mute').textContent = '🔇';
+    document.getElementById('vfs-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    fsVid.play();
+  }
+  function closeFS() {
+    const fsVid = document.getElementById('vfs-video');
+    fsVid.pause(); fsVid.src = '';
+    document.getElementById('vfs-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function toggleFSMute() {
+    const fsVid = document.getElementById('vfs-video');
+    fsVid.muted = !fsVid.muted;
+    document.getElementById('vfs-mute').textContent = fsVid.muted ? '🔇' : '🔊';
+  }
+  document.getElementById('vfs-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeFS(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('vfs-overlay').classList.contains('open')) closeFS(); });
+
+  const labelMap = {
+    obiettivo:'Cosa cerca', struttura:'Tipo di struttura', ota:'Dipendenza OTA', budget:'Budget mensile',
+    social_content:'Contenuti social e video', advertising:'Advertising e prenotazioni dirette',
+    identita:'Identità e storytelling', strategia:'Strategia completa',
+    hotel:'Hotel / Albergo', bb_affittacamere:'B&B / Affittacamere',
+    resort_agriturismo:'Resort / Agriturismo', altra_struttura:'Altra struttura ricettiva',
+    quasi_tutto:'Quasi tutto passa da OTA', meta:'50/50 tra OTA e dirette',
+    poche:'Poche OTA, voglio crescere', indipendente:'Già indipendente',
+    meno_500:'Meno di €500/mese', '500_1000':'€500 – €1.000/mese',
+    '1000_2500':'€1.000 – €2.500/mese', oltre_2500:'Oltre €2.500/mese'
+  };
+  function updateProgress(s) { document.querySelectorAll('#fprog span').forEach((el,i) => el.classList.toggle('active', i < s)); }
+  function nextStep(f) { document.getElementById('step'+f).classList.remove('active'); document.getElementById('step'+(f+1)).classList.add('active'); updateProgress(f+1); }
+  function prevStep(f) { document.getElementById('step'+f).classList.remove('active'); document.getElementById('step'+(f-1)).classList.add('active'); updateProgress(f-1); }
+  async function submitForm() {
+    const nome = document.getElementById('f-nome').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    if (!nome || !email) { alert('Inserisci almeno nome e email.'); return; }
+    const answers = {};
+    document.querySelectorAll('#step1 input:checked,#step2 input:checked,#step3 input:checked,#step4 input:checked').forEach(inp => {
+      if (!answers[inp.name]) answers[inp.name] = [];
+      answers[inp.name].push(inp.value);
+    });
+    let body = `<strong>Nuova richiesta — Social Hero Hotel</strong><br><br>`;
+    body += `<strong>Nome:</strong> ${nome}<br><strong>Hotel:</strong> ${document.getElementById('f-hotel').value}<br><strong>Email:</strong> ${email}<br><strong>Telefono:</strong> ${document.getElementById('f-tel').value}<br><br>`;
+    for (const [k,vals] of Object.entries(answers)) body += `<strong>${labelMap[k]||k}:</strong> ${vals.map(v=>labelMap[v]||v).join(', ')}<br>`;
+    try { await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ access_key:'5477270e-f037-405a-a802-438d7d51b1c7', subject:'Nuova richiesta - Social Hero Hotel', to:'davide.matteoli89@gmail.com', html:body }) }); } catch(e) {}
+    document.getElementById('step5').classList.remove('active');
+    document.getElementById('stepOk').classList.add('active');
+    updateProgress(5);
+  }
+  document.querySelectorAll('.choice-label').forEach(label => {
+    label.addEventListener('click', e => {
+      e.preventDefault();
+      const inp = label.querySelector('input');
+      if (inp.type === 'radio') {
+        document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r => { r.closest('.choice-label').classList.remove('selected'); r.checked = false; });
+        label.classList.add('selected'); inp.checked = true;
+      } else { label.classList.toggle('selected'); inp.checked = label.classList.contains('selected'); }
+    });
+  });
+</script>
+</body>
+</html>
